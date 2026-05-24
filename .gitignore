@@ -1,0 +1,30 @@
+# Environment variables — never commit secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
+
+# Node
+node_modules/
+
+# Vite / frontend build
+frontend/dist/
+frontend/dist-ssr/
+
+# Editors
+.vscode/
+.idea/
+*.suo
+*.sw?
+.DS_Store

@@ -1,0 +1,146 @@
+.page {
+  padding: 20px 20px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.dateRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.date {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.refreshBtn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: var(--text-light);
+  padding: 4px 8px;
+  border-radius: var(--radius);
+  line-height: 1;
+}
+.refreshBtn:hover { color: var(--text); background: var(--surface); }
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: var(--bg);
+  transition: background 0.1s;
+}
+.card:hover { background: var(--surface); }
+
+.card + .card {
+  border-top: 1px solid var(--border);
+}
+
+.past .time,
+.past .taskName,
+.past .meta {
+  color: var(--text-light);
+}
+
+.timeCol {
+  min-width: 64px;
+}
+
+.time {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-sub);
+  white-space: nowrap;
+}
+
+.info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.taskName {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meta {
+  font-size: 12px;
+  color: var(--text-sub);
+}
+
+.deleteBtn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: var(--text-light);
+  line-height: 1;
+  padding: 4px 6px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.deleteBtn:hover { color: var(--red); background: #fef2f2; }
+.deleteBtn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.empty {
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.emptyTitle {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.hint {
+  font-size: 14px;
+  color: var(--text-sub);
+  text-align: center;
+  padding: 12px 0;
+}
+
+.err {
+  font-size: 14px;
+  color: var(--red);
+  padding: 12px 0;
+}
+
+.addBtn {
+  width: 100%;
+  padding: 15px;
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  transition: opacity 0.15s;
+}
+.addBtn:hover { opacity: 0.85; }

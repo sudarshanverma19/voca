@@ -1,0 +1,117 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+}
+
+.modal {
+  background: var(--bg);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  width: min(420px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.task {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.message {
+  font-size: 14px;
+  color: var(--text-sub);
+}
+
+.question {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.extendRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.extendLabel {
+  font-size: 14px;
+  color: var(--text-sub);
+  white-space: nowrap;
+}
+
+.extendInput {
+  width: 80px;
+  padding: 8px 10px;
+  border-radius: var(--radius);
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+}
+.extendInput:focus { border-color: var(--border-strong); }
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.btn {
+  flex: 1;
+  padding: 13px 0;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 700;
+  transition: opacity 0.15s;
+  letter-spacing: 0.2px;
+}
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.completed {
+  background: var(--black);
+  color: var(--white);
+}
+.extend {
+  background: var(--surface);
+  color: var(--text);
+  border: 1.5px solid var(--border);
+}
+.skip {
+  background: var(--surface);
+  color: var(--text-sub);
+  border: 1.5px solid var(--border);
+}
+
+.error {
+  font-size: 13px;
+  color: var(--red);
+}
+
+.loadingText {
+  font-size: 13px;
+  color: var(--text-sub);
+}
+
+.durationPrompt {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
