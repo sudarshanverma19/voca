@@ -3,18 +3,19 @@ const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
+const CLIENT_URL = process.env.CLIENT_URL;
 
-const ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(',')
-  : ['http://localhost:5173', 'http://localhost:3000'];
+if (!CLIENT_URL) {
+  console.error('[signaling] CLIENT_URL env var is not set — CORS will block all connections');
+}
 
 const app = express();
 const httpServer = http.createServer(app);
 
 const io = new Server(httpServer, {
   cors: {
-    origin: ALLOWED_ORIGINS,
+    origin: CLIENT_URL,
     methods: ['GET', 'POST'],
   },
 });
@@ -30,6 +31,7 @@ app.get('/health', (_req, res) => {
 });
 
 io.on('connection', (socket) => {
+  console.log('User connected:', socket.id);
   let registeredUserId = null;
 
   // ── Register ──────────────────────────────────────────────────────────
@@ -139,7 +141,8 @@ io.on('connection', (socket) => {
   });
 
   // ── Disconnect ─────────────────────────────────────────────────────────
-  socket.on('disconnect', () => {
+  socket.on('disconnect', (reason) => {
+    console.log('User disconnected:', socket.id, '—', reason);
     if (registeredUserId) {
       // Only remove if this is still the active socket for that user
       if (userSockets.get(registeredUserId) === socket.id) {
