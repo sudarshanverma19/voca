@@ -19,7 +19,7 @@ DEFAULT_TTL = 5_400  # 90 minutes
 
 def set_session(session_id: str, data: dict, ttl: int = DEFAULT_TTL) -> None:
     key = f"session:{session_id}"
-    print(f"[redis] set_session  key={key!r}  ttl={ttl}s")
+    print("Setting session:", session_id)
     try:
         get_redis().setex(key, ttl, json.dumps(data))
         print(f"[redis] set_session  OK — key written successfully")
