@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:8000';
+import { API_URL as BASE_URL } from '../config';
 
 export async function fetchActiveSession(userId) {
   const res = await fetch(`${BASE_URL}/active-session/${userId}`);

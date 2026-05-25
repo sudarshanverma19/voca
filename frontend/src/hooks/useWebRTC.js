@@ -14,11 +14,13 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { io } from 'socket.io-client';
+import { SOCKET_URL } from '../config';
 
-const SIGNALING_URL = 'http://localhost:3001';
+const SIGNALING_URL = SOCKET_URL;
 const ICE_CONFIG = { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] };
 
 const SOCKET_OPTS = {
+  transports: ['websocket'],
   reconnection: true,
   reconnectionAttempts: Infinity,
   reconnectionDelay: 1000,

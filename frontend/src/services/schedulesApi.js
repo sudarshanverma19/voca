@@ -1,4 +1,4 @@
-const BASE = 'http://localhost:8000';
+import { API_URL as BASE } from '../config';
 
 export async function getSchedules(userId, date) {
   const res = await fetch(`${BASE}/schedules/${date}?user_id=${userId}`);

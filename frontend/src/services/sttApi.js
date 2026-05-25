@@ -1,4 +1,4 @@
-const BASE = 'http://localhost:8000';
+import { API_URL as BASE } from '../config';
 
 export async function transcribeAudio(audioBlob, context = 'schedule') {
   const form = new FormData();
