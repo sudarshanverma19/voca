@@ -15,9 +15,15 @@ from services import scheduler
 
 app = FastAPI(title="VocaFlow API")
 
+# Build allowed origins: always include localhost for dev, plus the deployed frontend URL.
+_allowed_origins = ["http://localhost:5173"]
+_client_url = os.getenv("CLIENT_URL", "").strip().rstrip("/")
+if _client_url and _client_url not in _allowed_origins:
+    _allowed_origins.append(_client_url)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=_allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
