@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { fetchActiveSession, postTransitionDecision, postVoiceDecision } from '../../services/sessionApi';
 import { IncomingCallScreen } from '../IncomingCallScreen/IncomingCallScreen';
 import { useWebRTC } from '../../hooks/useWebRTC';
+import { useRingtone } from '../../hooks/useRingtone';
 import styles from './ActiveSessionModal.module.css';
 
 const POLL_INTERVAL_MS = 5000;
@@ -18,9 +19,21 @@ export function ActiveSessionModal({ userId }) {
   const [needsDuration, setNeedsDuration] = useState(false);
 
   const { callState, incomingSessionId, connectedCount, startCall, acceptCall, hangUp } = useWebRTC(userId);
+  const { startRinging, stopRinging } = useRingtone();
 
   const isIncomingCall = callState === 'ringing';
   const isCallActive = callState !== 'idle';
+
+  // Start ringing as soon as an incoming call is detected; stop the moment it resolves.
+  // handleAccept / handleReject / auto-reject all transition callState away from 'ringing',
+  // which flips isIncomingCall to false and fires stopRinging automatically.
+  useEffect(() => {
+    if (isIncomingCall && activeSession) {
+      startRinging();
+    } else {
+      stopRinging();
+    }
+  }, [isIncomingCall, activeSession, startRinging, stopRinging]);
 
   // Refs so async callbacks always see the latest values without stale closures
   const callStateRef = useRef(callState);

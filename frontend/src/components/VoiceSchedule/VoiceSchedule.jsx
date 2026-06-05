@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { transcribeAudio } from '../../services/sttApi';
 import { createSchedule } from '../../services/schedulesApi';
+import { scheduleNativeAlarm } from '../../plugins/AlarmPlugin';
 import styles from './VoiceSchedule.module.css';
 
 function todayISO() { return new Date().toISOString().slice(0, 10); }
@@ -162,7 +163,7 @@ export function VoiceSchedule({ userId, onDone }) {
     setError(null);
     setSubmitting(true);
     try {
-      await createSchedule({
+      const result = await createSchedule({
         user_id: userId,
         task_name: values.task_name.trim(),
         date: todayISO(),
@@ -172,6 +173,8 @@ export function VoiceSchedule({ userId, onDone }) {
         contact_preference: 'default',
         created_via: 'voice',
       });
+      // Schedule native Android alarm (no-op on web/iOS)
+      await scheduleNativeAlarm(result);
       onDone();
     } catch (e) {
       setError(e.message);

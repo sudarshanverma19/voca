@@ -4,17 +4,24 @@ export function IncomingCallScreen({ taskName, onAccept, onReject }) {
   return (
     <div className={styles.overlay}>
       <div className={styles.card} role="dialog" aria-modal="true" aria-label="Incoming session call">
-        <span className={styles.icon}>📞</span>
-        <h2 className={styles.title}>Incoming Session Call</h2>
-        <p className={styles.taskName}>{taskName}</p>
+
+        {/* Pulsing ripple + wiggling phone icon */}
+        <div className={styles.iconWrap}>
+          <div className={styles.iconCircle}>📞</div>
+        </div>
+
+        <p className={styles.title}>Incoming Session</p>
+        <h2 className={styles.taskName}>{taskName}</h2>
+
         <div className={styles.actions}>
-          <button className={`${styles.btn} ${styles.accept}`} onClick={onAccept}>
-            Accept
-          </button>
           <button className={`${styles.btn} ${styles.reject}`} onClick={onReject}>
-            Reject
+            ✕ Reject
+          </button>
+          <button className={`${styles.btn} ${styles.accept}`} onClick={onAccept}>
+            ✓ Accept
           </button>
         </div>
+
       </div>
     </div>
   );

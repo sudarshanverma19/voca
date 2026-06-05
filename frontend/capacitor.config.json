@@ -1,0 +1,9 @@
+{
+  "appId": "com.vocassistant.app",
+  "appName": "vocassistant",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "http"
+  }
+}
+

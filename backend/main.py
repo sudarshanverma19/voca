@@ -15,8 +15,15 @@ from services import scheduler
 
 app = FastAPI(title="VocaFlow API")
 
-# Build allowed origins: always include localhost for dev, plus the deployed frontend URL.
-_allowed_origins = ["http://localhost:5173"]
+# Build allowed origins: include localhost, common Capacitor origins, and the computer's IP
+_allowed_origins = [
+    "http://localhost:5173",
+    "http://localhost",
+    "capacitor://localhost",
+    "http://192.168.1.5:5173",
+    "http://192.168.1.5"
+]
+
 _client_url = os.getenv("CLIENT_URL", "").strip().rstrip("/")
 if _client_url and _client_url not in _allowed_origins:
     _allowed_origins.append(_client_url)

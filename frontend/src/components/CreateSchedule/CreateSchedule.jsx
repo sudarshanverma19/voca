@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { createSchedule } from '../../services/schedulesApi';
+import { scheduleNativeAlarm } from '../../plugins/AlarmPlugin';
 import styles from './CreateSchedule.module.css';
 
 function todayISO() {
@@ -56,6 +57,8 @@ export function CreateSchedule({ userId, onDone }) {
         created_via: 'manual',
       };
       const result = await createSchedule(payload);
+      // Schedule native Android alarm (no-op on web/iOS)
+      await scheduleNativeAlarm(result);
       if (!result.scheduled && form.date === todayISO()) {
         setNotice('Task saved, but the start time is already past — it will not trigger today.');
         setTimeout(onDone, 2800);

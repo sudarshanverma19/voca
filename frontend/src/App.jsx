@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import { TodayView, CreateSchedule, VoiceSchedule, Settings, ActiveSessionModal } from './components';
+import { requestAlarmPermissions } from './plugins/AlarmPlugin';
 
 // Must match user_id used in all API calls and POST /schedules
 const USER_ID = '00000000-0000-0000-0000-000000000001';
@@ -14,6 +15,12 @@ const NAV = [
 
 export default function App() {
   const [tab, setTab] = useState('today');
+
+  // Ask for battery-optimisation exemption + exact-alarm permission on first launch.
+  // Both are required for alarms to fire when the screen is off or the app is closed.
+  useEffect(() => {
+    requestAlarmPermissions();
+  }, []);
 
   return (
     <div className="shell">
