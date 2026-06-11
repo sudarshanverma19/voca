@@ -18,8 +18,29 @@ export function ActiveSessionModal({ userId }) {
   const [voiceTranscript, setVoiceTranscript] = useState(null);
   const [needsDuration, setNeedsDuration] = useState(false);
 
+  // Define poll outside so it can be called manually
+  const pollRef = useRef(null);
+
   const { callState, incomingSessionId, connectedCount, startCall, acceptCall, hangUp } = useWebRTC(userId);
   const { startRinging, stopRinging } = useRingtone();
+
+  // ── Native Alarm Event Listener ─────────────────────────────────────────────
+  // Listen for the event fired by MainActivity.java when the app is opened
+  // specifically via a background alarm.
+  useEffect(() => {
+    const handleNativeAlarm = (event) => {
+      const data = event.detail ? JSON.parse(event.detail) : {};
+      console.log('[ActiveSessionModal] Received native alarm event:', data);
+
+      // If we're not already in a call, force-poll to get session details immediately
+      if (callStateRef.current === 'idle' && pollRef.current) {
+        pollRef.current();
+      }
+    };
+
+    window.addEventListener('vocaflow:incoming_call', handleNativeAlarm);
+    return () => window.removeEventListener('vocaflow:incoming_call', handleNativeAlarm);
+  }, []);
 
   const isIncomingCall = callState === 'ringing';
   const isCallActive = callState !== 'idle';
@@ -137,10 +158,14 @@ export function ActiveSessionModal({ userId }) {
         console.error('[ActiveSessionModal] poll error:', err);
       }
     };
+    pollRef.current = poll;
 
     poll();
     const intervalId = setInterval(poll, POLL_INTERVAL_MS);
-    return () => clearInterval(intervalId);
+    return () => {
+      clearInterval(intervalId);
+      pollRef.current = null;
+    };
   }, [userId, isCallActive, showSessionPopup, connectedCount, startCall]); // ignoredSessionId via ref
 
   const handleAccept = () => {

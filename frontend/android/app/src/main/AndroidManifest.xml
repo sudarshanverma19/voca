@@ -34,6 +34,7 @@
 
     <!-- ── Post notifications (Android 13+) ────────────────────────────── -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -58,6 +59,22 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- ── Google OAuth deep-link callback ──────────────────────── -->
+            <!--
+                After Google login, Supabase redirects to:
+                  com.vocassistant.app://login-callback?access_token=...
+                Android intercepts this and re-opens the app.
+                AuthProvider.jsx listens for appUrlOpen and calls supabase.setSession().
+            -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:scheme="com.vocassistant.app"
+                    android:host="login-callback" />
             </intent-filter>
         </activity>
 

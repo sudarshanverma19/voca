@@ -19,9 +19,11 @@ app = FastAPI(title="VocaFlow API")
 _allowed_origins = [
     "http://localhost:5173",
     "http://localhost",
-    "capacitor://localhost",
+    "https://localhost",           # Capacitor 5+ Android WebView origin
+    "capacitor://localhost",       # Capacitor 3 / legacy
+    "ionic://localhost",           # Ionic/Capacitor fallback
     "http://192.168.1.5:5173",
-    "http://192.168.1.5"
+    "http://192.168.1.5",
 ]
 
 _client_url = os.getenv("CLIENT_URL", "").strip().rstrip("/")

@@ -1,3 +1,6 @@
+/**
+ * sttApi.js — Groq Whisper transcription.
+ */
 import { API_URL as BASE } from '../config';
 
 export async function transcribeAudio(audioBlob, context = 'schedule') {
@@ -12,3 +15,4 @@ export async function transcribeAudio(audioBlob, context = 'schedule') {
   }
   return res.json(); // { text: string }
 }
+

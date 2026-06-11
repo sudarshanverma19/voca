@@ -1,3 +1,8 @@
+/**
+ * sessionApi.js
+ *
+ * Active session polling, transition decisions, and voice decisions.
+ */
 import { API_URL as BASE_URL } from '../config';
 
 export async function fetchActiveSession(userId) {
@@ -32,3 +37,4 @@ export async function postVoiceDecision({ audioBlob }) {
   }
   return res.json();
 }
+

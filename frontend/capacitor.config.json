@@ -1,9 +1,13 @@
 {
   "appId": "com.vocassistant.app",
-  "appName": "vocassistant",
+  "appName": "VocaFlow",
   "webDir": "dist",
   "server": {
-    "androidScheme": "http"
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "Browser": {
+      "presentationStyle": "popover"
+    }
   }
 }
-

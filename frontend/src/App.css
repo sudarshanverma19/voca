@@ -75,3 +75,51 @@
 }
 
 .navActive .navDot { opacity: 1; }
+
+/* ── Sign-out button in header ────────────────────────────────────────── */
+.header {
+  justify-content: space-between;
+}
+
+.signOutBtn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: var(--text-light);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: background 0.15s, color 0.15s;
+  line-height: 1;
+}
+
+.signOutBtn:hover {
+  background: var(--border);
+  color: var(--text);
+}
+
+/* ── Loading screen (shown while auth state is resolving) ─────────────── */
+.loadingScreen {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #0d0f1e;
+}
+
+.loadingDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  animation: dotPulse 1.4s ease-in-out infinite;
+}
+
+.loadingDot:nth-child(2) { animation-delay: 0.2s; }
+.loadingDot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dotPulse {
+  0%, 80%, 100% { transform: scale(0.8); opacity: 0.3; }
+  40%           { transform: scale(1.2); opacity: 1; }
+}
